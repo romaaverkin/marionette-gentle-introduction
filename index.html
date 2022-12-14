@@ -18,17 +18,15 @@
     </div>
   </div>
 
-  <div id="main-region" class="container">
-    <p>Here is static content in the web page. You'll notice that it gets replaced by our app as soon as we start it.
-    </p>
+  <div id="app-container">
+    <div id="main-region" class="container">
+      <p>Here is static content in the web page. You'll notice that it gets replaced by our app as soon as we start it.
+      </p>
+    </div>
   </div>
 
-  <script type="tetx/template" id="static-template">
-    <p>This is text that was rendered by our Marionette app.</p>
-  </script>
-
-  <script type="text/template" id="contact-template">
-    <p><%= firstName %> <%= lastName%></p>
+  <script type="text/template" id="contact-list-item">
+    <p><%- firstName %> <%- lastName %></p>
   </script>
 
   <script src="./assets/js/vendor/jquery.js"></script>
@@ -40,34 +38,63 @@
   <script type="text/javascript">
     var ContactManager = new Marionette.Application();
 
-    ContactManager.addRegions({
-      mainRegion: "#main-region"
-    });
-
     ContactManager.Contact = Backbone.Model.extend({});
 
-    ContactManager.ContactView = Marionette.ItemView.extend({
-      template: "#contact-template"
+    ContactManager.ContactCollection = Backbone.Collection.extend({
+      model: ContactManager.Contact,
+      comparator: "firstName"
+    });
+
+    ContactManager.ContactItemView = Marionette.ItemView.extend({
+      tagName: "li",
+      template: "#contact-list-item"
+    });
+
+    ContactManager.ContactsView = Marionette.CollectionView.extend({
+      tagName: "ul",
+      childView: ContactManager.ContactItemView
+    });
+
+    ContactManager.on("before:start", function () {
+      var RegionContainer = Marionette.LayoutView.extend({
+        el: "#app-container",
+
+        regions: {
+          main: "#main-region"
+        }
+      });
+
+      ContactManager.regions = new RegionContainer();
     });
 
     ContactManager.on("start", function () {
-      var alice = new ContactManager.Contact({
-        firstName: "Alice",
-        lastName: "Arten",
-        phoneNumber: "555-0184"
+      var contacts = new ContactManager.ContactCollection([
+        {
+          firstName: "Bob",
+          lastName: "Brigham",
+          phoneNumber: "555-0163"
+        },
+        {
+          firstName: "Alice",
+          lastName: "Arten",
+          phoneNumber: "555-0184"
+        },
+        {
+          firstName: "Charlie",
+          lastName: "Campbell",
+          phoneNumber: "555-0129"
+        }
+      ]);
+
+      var contactsView = new ContactManager.ContactsView({
+        collection: contacts
       });
 
-      var aliceView = new ContactManager.ContactView({
-        model: alice
-      })
-
-      ContactManager.mainRegion.show(aliceView);
+      ContactManager.regions.main.show(contactsView);
     });
 
     ContactManager.start();
-
   </script>
-
 </body>
 
 </html>
