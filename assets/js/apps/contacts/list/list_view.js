@@ -4,13 +4,17 @@ ContactManager.module("ContactsApp.List", function (List, ContactManager, Backbo
         template: "#contact-list-item",
 
         events: {
-            "click": "highlightName"
+            "click": "highlightName",
+            "click button.js-delete": "deleteClicked"
         },
 
         highlightName: function (e) {
-            e.preventDefault();
-            console.log($(e.target).text());
             this.$el.toggleClass("warning");
+        },
+
+        deleteClicked: function (e) {
+            e.stopPropagation();
+            this.model.collection.remove(this.model);
         }
     });
 
