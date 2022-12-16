@@ -7,6 +7,10 @@ ContactManager.module("ContactsApp.List", function (List, ContactManager, Backbo
                 collection: contacts
             });
 
+            contactsListView.on("childview.contact:delete", function (childView, model) {
+                contacts.remove(model);
+            });
+
             ContactManager.regions.main.show(contactsListView);
         }
     }
