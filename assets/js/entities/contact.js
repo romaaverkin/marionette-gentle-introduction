@@ -13,7 +13,7 @@ ContactManager.module("Entities", function (Entities, ContactManager, Backbone, 
 
     Entities.configureStorage("ContactManager.Entities.ContactCollection");
 
-     var initializeContacts = function () {
+    var initializeContacts = function () {
         var contacts = new Entities.ContactCollection([
             { id: 1, firstName: "Alice", lastName: "Arten", phoneNumber: "555-0184" },
             { id: 2, firstName: "Bob", lastName: "Brigham", phoneNumber: "555-0163" },
@@ -33,10 +33,20 @@ ContactManager.module("Entities", function (Entities, ContactManager, Backbone, 
                 return initializeContacts();
             }
             return contacts;
+        },
+
+        getContactEntity: function (contactId) {
+            var contact = new Entities.Contact({ id: contactId });
+            contact.fetch();
+            return contact;
         }
     };
 
     ContactManager.reqres.setHandler("contact:entities", function () {
         return API.getContactEntities();
+    });
+
+    ContactManager.reqres.setHandler("contact:entity", function (id) {
+        return API.getContactEntity(id);
     });
 });
