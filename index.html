@@ -19,11 +19,20 @@
   </div>
 
   <div id="main-region" class="container">
-    <p>Вот статическое содержимое на веб-странице. Вы заметите, что оно заменяется нашим приложением, как только мы его запускаем.</p>
+    <p>Here is static content in the web page. You'll notice that it gets
+      replaced by our app as soon as we start it.</p>
   </div>
 
   <script type="tetx/template" id="static-template">
-    <p>Это текст, который был обработан нашим приложением Marionette.</p>
+    <p>This is text that was rendered by our Marionette app.</p>
+  </script>
+
+  <script type="text/template" id="different-static-template">
+    <p>Text from a different template...</p>
+  </script>
+
+  <script type="text/template" id="list-item-template">
+    <li>One item</li>
   </script>
 
   <script src="./assets/js/vendor/jquery.js"></script>
@@ -40,11 +49,15 @@
     });
 
     ContactManager.StaticView = Marionette.ItemView.extend({
-      template: "#static-template"
-    });
+        tagName: "ul",
+        template: "#static-template"
+      }
+    );
 
     ContactManager.on("start", function () {
-      var staticView = new ContactManager.StaticView();
+      var staticView = new ContactManager.StaticView({
+        template: "#list-item-template"
+      });
       ContactManager.mainRegion.show(staticView);
     });
 
