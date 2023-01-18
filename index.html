@@ -40,17 +40,28 @@
       mainRegion: "#main-region"
     });
 
-    ContactManager.Contact = Backbone.Model.extend({});
+    ContactManager.Contact = Backbone.Model.extend({
+      defaults: {
+        phoneNumber: "No phone number!"
+      }
+    });
 
     ContactManager.ContactView = Marionette.ItemView.extend({
-      template: "#contact-template"
+      template: "#contact-template",
+
+      events: {
+        "click p": "alerrtPhoneNumber"
+      },
+
+      alerrtPhoneNumber: function () {
+        alert(this.model.escape("phoneNumber"));
+      }
     });
 
     ContactManager.on("start", function () {
       var alice = new ContactManager.Contact({
         firstName: "Alice",
-        lastName: "Arten",
-        phoneNumber: "555-0184"
+        lastName: "Arten"
       });
 
       var aliceView = new ContactManager.ContactView({
