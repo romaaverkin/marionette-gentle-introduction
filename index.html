@@ -23,16 +23,8 @@
       replaced by our app as soon as we start it.</p>
   </div>
 
-  <script type="tetx/template" id="static-template">
-    <p>This is text that was rendered by our Marionette app.</p>
-  </script>
-
-  <script type="text/template" id="different-static-template">
-    <p>Text from a different template...</p>
-  </script>
-
-  <script type="text/template" id="list-item-template">
-    <li>One item</li>
+  <script type="text/template" id="contact-template">
+    <p><%= firstName %> <%= lastName %></p>
   </script>
 
   <script src="./assets/js/vendor/jquery.js"></script>
@@ -48,21 +40,27 @@
       mainRegion: "#main-region"
     });
 
-    ContactManager.StaticView = Marionette.ItemView.extend({
-        tagName: "ul",
-        template: "#static-template"
-      }
-    );
+    ContactManager.Contact = Backbone.Model.extend({});
 
-    ContactManager.on("start", function () {
-      var staticView = new ContactManager.StaticView({
-        template: "#list-item-template"
-      });
-      ContactManager.mainRegion.show(staticView);
+    ContactManager.ContactView = Marionette.ItemView.extend({
+      template: "#contact-template"
     });
 
-    ContactManager.start();
+    ContactManager.on("start", function () {
+      var alice = new ContactManager.Contact({
+        firstName: "Alice",
+        lastName: "Arten",
+        phoneNumber: "555-0184"
+      });
 
+      var aliceView = new ContactManager.ContactView({
+        model: alice
+      })
+
+      ContactManager.mainRegion.show(aliceView);
+    });
+
+    ContactManager.start();    
   </script>
 
 </body>
