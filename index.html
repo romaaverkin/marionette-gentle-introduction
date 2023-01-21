@@ -32,23 +32,11 @@
   <script src="./assets/js/vendor/underscore.js"></script>
   <script src="./assets/js/vendor/backbone.js"></script>
   <script src="./assets/js/vendor/backbone.marionette.js"></script>
+  
+  <script src="./assets/js/app.js"></script>
+  <script src="./assets/js/entities/contact.js"></script>
 
   <script type="text/javascript">
-    var ContactManager = new Marionette.Application();
-
-    ContactManager.addRegions({
-      mainRegion: "#main-region"
-    });
-
-    ContactManager.Contact = Backbone.Model.extend({});
-
-    ContactManager.ContactCollection = Backbone.Collection.extend({
-      model: ContactManager.Contact,
-      comparator: function (contact) {
-        return contact.get("firstName") + " " + contact.get("lastName");
-      }
-    });
-
     ContactManager.ContactItemView = Marionette.ItemView.extend({
       tagName: "li",
       template: "#contact-list-item"
@@ -60,7 +48,7 @@
     });
 
     ContactManager.on("start", function () {
-      var contacts = new ContactManager.ContactCollection([
+      var contacts = new ContactManager.Entities.ContactCollection([
         {
           firstName: "Alice",
           lastName: "Tampen"
