@@ -32,7 +32,7 @@
   <script src="./assets/js/vendor/underscore.js"></script>
   <script src="./assets/js/vendor/backbone.js"></script>
   <script src="./assets/js/vendor/backbone.marionette.js"></script>
-  
+
   <script src="./assets/js/app.js"></script>
   <script src="./assets/js/entities/contact.js"></script>
 
@@ -48,32 +48,7 @@
     });
 
     ContactManager.on("start", function () {
-      var contacts = new ContactManager.Entities.ContactCollection([
-        {
-          firstName: "Alice",
-          lastName: "Tampen"
-        },
-        {
-          firstName: "Bob",
-          lastName: "Brigham"
-        },
-        {
-          firstName: "Alice",
-          lastName: "Artsy"
-        },
-        {
-          firstName: "Alice",
-          lastName: "Arten"
-        },
-        {
-          firstName: "Charlie",
-          lastName: "Campbell"
-        },
-        {
-          firstName: "Alice",
-          lastName: "Smith"
-        },
-      ]);
+      var contacts = ContactManager.request("contact:entities");
 
       var contactsListView = new ContactManager.ContactsView({
         collection: contacts
