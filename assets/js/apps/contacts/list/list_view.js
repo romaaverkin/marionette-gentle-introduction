@@ -10,6 +10,6 @@ ContactManager.module("ContactsApp.List", function (List, ContactManager,
         className: "table table-hover",
         template: "#contact-list",
         childView: List.Contact,
-        itemViewContainer: "tbody"
+        childViewContainer: "tbody"
     });
 });
