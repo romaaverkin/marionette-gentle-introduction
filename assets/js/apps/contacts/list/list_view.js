@@ -5,11 +5,17 @@ ContactManager.module("ContactsApp.List", function (List, ContactManager,
         template: "#contact-list-item",
 
         events: {
-            "click": "highlightName"
+            "click": "highlightName",
+            "click button.js-delete": "deleteClicked"
         },
 
         highlightName: function () {
             this.$el.toggleClass("warning");
+        },
+
+        deleteClicked: function (e) {
+            e.stopPropagation();
+            this.model.collection.remove(this.model);
         }
     })
 
