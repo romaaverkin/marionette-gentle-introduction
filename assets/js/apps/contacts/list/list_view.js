@@ -15,7 +15,7 @@ ContactManager.module("ContactsApp.List", function (List, ContactManager,
 
         deleteClicked: function (e) {
             e.stopPropagation();
-            this.model.collection.remove(this.model);
+            this.trigger("contact:delete", this.model);
         }
     })
 
