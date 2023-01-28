@@ -16,6 +16,13 @@ ContactManager.module("ContactsApp.List", function (List, ContactManager,
         deleteClicked: function (e) {
             e.stopPropagation();
             this.trigger("contact:delete", this.model);
+        },
+
+        remove: function () {
+            var self = this;
+            this.$el.fadeOut(function () {
+                Marionette.ItemView.prototype.remove.call(self);
+            });
         }
     })
 
