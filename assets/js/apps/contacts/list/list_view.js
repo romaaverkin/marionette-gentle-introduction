@@ -6,11 +6,19 @@ ContactManager.module("ContactsApp.List", function (List, ContactManager,
 
         events: {
             "click": "highlightName",
+            'click td a.js-show': "showClicked",
             "click button.js-delete": "deleteClicked"
         },
 
-        highlightName: function () {
+        highlightName: function (e) {
             this.$el.toggleClass("warning");
+            this.trigger("contact:highlighting:toggled", this.model);
+        },
+
+        showClicked: function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.trigger("contact:show", this.model);
         },
 
         deleteClicked: function (e) {
@@ -31,12 +39,6 @@ ContactManager.module("ContactsApp.List", function (List, ContactManager,
         className: "table table-hover",
         template: "#contact-list",
         childView: List.Contact,
-        childViewContainer: "tbody",
-
-        onChildviewContactDelete: function () {
-            this.$el.fadeOut(1000, function () {
-                $(this).fadeIn(1000);
-            });
-        }
+        childViewContainer: "tbody"
     });
 });
