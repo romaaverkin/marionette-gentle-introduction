@@ -12,7 +12,6 @@ ContactManager.module("ContactsApp.List", function (List, ContactManager,
 
         highlightName: function (e) {
             this.$el.toggleClass("warning");
-            // this.trigger("contact:highlighting:toggled", this.model);
         },
 
         showClicked: function (e) {

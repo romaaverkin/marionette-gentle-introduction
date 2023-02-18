@@ -50,6 +50,11 @@
     </tbody>
   </script>
 
+  <script type="text/template" id="contact-view">
+    <h1><%= firstName %> <%= lastName %></h1>
+    <p><strong>Phone Number: </strong><%= phoneNumber %></p>  
+  </script>
+
   <script src="./assets/js/vendor/jquery.js"></script>
   <script src="./assets/js/vendor/json2.js"></script>
   <script src="./assets/js/vendor/underscore.js"></script>
@@ -60,6 +65,8 @@
   <script src="./assets/js/entities/contact.js"></script>
   <script src="./assets/js/apps/contacts/list/list_view.js"></script>
   <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
+  <script src="./assets/js/apps/contacts/show/show_view.js"></script>
+  <script src="./assets/js/apps/contacts/show/show_controller.js"></script>
 
   <script type="text/javascript">
     ContactManager.start();
