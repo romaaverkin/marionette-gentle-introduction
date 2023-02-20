@@ -1,5 +1,4 @@
-ContactManager.module("Entities", function (Entities, ContactManager,
-    Backbone, Marionette, $, _) {
+ContactManager.module("Entities", function (Entities, ContactManager, Backbone, Marionette, $, _) {
     Entities.Contact = Backbone.Model.extend({
         urlRoot: "contacts"
     });
@@ -13,8 +12,6 @@ ContactManager.module("Entities", function (Entities, ContactManager,
     });
 
     Entities.configureStorage("ContactManager.Entities.ContactCollection");
-
-    // var contacts;
 
     var initializeContacts = function () {
         var contacts = new Entities.ContactCollection([
@@ -33,14 +30,23 @@ ContactManager.module("Entities", function (Entities, ContactManager,
             var contacts = new Entities.ContactCollection();
             contacts.fetch();
             if (contacts.length === 0) {
-                // if we don't have any contacts yet, create some for convenience
                 return initializeContacts();
             }
             return contacts;
+        },
+
+        getContactEntity: function (contactId) {
+            var contact = new Entities.Contact({ id: contactId });
+            contact.fetch();
+            return contact;
         }
     };
 
     ContactManager.reqres.setHandler("contact:entities", function () {
         return API.getContactEntities();
+    });
+
+    ContactManager.reqres.setHandler("contact:entity", function (id) {
+        return API.getContactEntity(id);
     });
 });
