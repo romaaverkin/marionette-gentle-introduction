@@ -27,10 +27,6 @@
     <p>Это текст, который был обработан нашим приложением Marionette.</p>
   </script>
 
-  <script type="text/template" id="list-item-template">
-     <li>One item</li>
-  </script>
-
   <script src="./assets/js/vendor/jquery.js"></script>
   <script src="./assets/js/vendor/json2.js"></script>
   <script src="./assets/js/vendor/underscore.js"></script>
@@ -45,8 +41,7 @@
     });
 
     ContactManager.StaticView = Marionette.ItemView.extend({
-      tagName: "ul",
-      template: "#list-item-template"
+      template: "#static-template"
     });
 
     ContactManager.on("start", function () {
