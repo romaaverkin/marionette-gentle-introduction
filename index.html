@@ -40,7 +40,11 @@
       mainRegion: "#main-region"
     });
 
-    ContactManager.Contact = Backbone.Model.extend({});
+    ContactManager.Contact = Backbone.Model.extend({
+      defaults: {
+        phoneNumber: "Нет номера телефона!"
+      }
+    });
 
     ContactManager.ContactView = Marionette.ItemView.extend({
       template: "#contact-template",
@@ -58,7 +62,6 @@
       var alice = new ContactManager.Contact({
         firstName: "Alice",
         lastName: "Arten",
-        phoneNumber: "555-0184"
       });
 
       var aliceView = new ContactManager.ContactView({
