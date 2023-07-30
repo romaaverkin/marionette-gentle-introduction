@@ -23,8 +23,8 @@
       запускаем.</p>
   </div>
 
-  <script type="tetx/template" id="static-template">
-    <p>Это текст, который был обработан нашим приложением Marionette.</p>
+  <script type="text/template" id="contact-template">
+     <p><%= firstName %> <%= lastName %></p>
   </script>
 
   <script src="./assets/js/vendor/jquery.js"></script>
@@ -40,13 +40,32 @@
       mainRegion: "#main-region"
     });
 
-    ContactManager.StaticView = Marionette.ItemView.extend({
-      template: "#static-template"
+    ContactManager.Contact = Backbone.Model.extend({});
+
+    ContactManager.ContactView = Marionette.ItemView.extend({
+      template: "#contact-template",
+
+      events: {
+        "click p": "alertPhoneNumber"
+      },
+
+      alertPhoneNumber() {
+        alert(this.model.escape("phoneNumber"));
+      }
     });
 
     ContactManager.on("start", function () {
-      var staticView = new ContactManager.StaticView();
-      ContactManager.mainRegion.show(staticView);
+      var alice = new ContactManager.Contact({
+        firstName: "Alice",
+        lastName: "Arten",
+        phoneNumber: "555-0184"
+      });
+
+      var aliceView = new ContactManager.ContactView({
+        model: alice
+      });
+
+      ContactManager.mainRegion.show(aliceView);
     });
 
     ContactManager.start();
