@@ -44,8 +44,20 @@
 
     ContactManager.ContactCollection = Backbone.Collection.extend({
       model: ContactManager.Contact,
-      comparator: function (contact) {
-        return contact.get("firstName") + " " + contact.get("lastName")
+      comparator: function (a, b) {
+        var aFirstName = a.get("firstName");
+        var bFirstName = b.get("firstName");
+        var aLastName = a.get("lastName");
+        var bLasttName = b.get("lastName");
+
+        if (aFirstName === bFirstName) {
+          if (aLastName === bFirstName) return 0;
+          else if (aLastName < bLasttName) return -1;
+          return 1;
+        } else {
+          if (aFirstName < bLasttName) return -1;
+          return 1;
+        }
       }
     });
 
